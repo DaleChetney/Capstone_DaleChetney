@@ -12,7 +12,11 @@
 #include <Qt/qtimer.h>
 #include <QtGui\qmouseevent>
 #include <QtGui\qkeyevent>
-
+#include "Human.h"
+#include "Tribe.h"
+#include "DebugElement.h"
+#include "DebugButton.h"
+#include "FastDelegate.h"
 #include <CL\cl.h>
 #include <CL\cl_gl.h>
 #include <iostream>
@@ -39,13 +43,42 @@ using glm::dot;
 class GraphicsWindow : public QWidget
 {
 	Q_OBJECT
-	QVBoxLayout* mainLayout;
+	QHBoxLayout* mainLayout;
+	QVBoxLayout* controlPanel;
+	QVBoxLayout* infoPanel;
+
+	DebugButton* landscapeButton;
+	DebugButton* fertilityButton;
+	DebugButton* densityButton;
+	QLabel* labelTribes;
+	QLabel* labelPop;
+	QLabel* labelTribPop;
+	QLabel* labelTribFood;
+	QLabel* labelTribHarvest;
 	
 	Geometry* plane;
+	Geometry* cube;
 
-	Shader* textureOnlyShader;
+	float landAmp;
+	float viewTribe;
+	float soil;
+	float lifespan;
+	float birthrate;
+	float exploration;
 
-	Texture* levelTexture;
+	Shader* landscapeShader;
+	Shader* cityOverlay;
+	Shader* simpleShader;
+
+	Texture* worldTexture;
+	Texture* heightTexture;
+	Texture* fertilityTexture;
+	Texture* cityTexture;
+	Texture* densityTexture;
+
+	RENDER* land;
+	RENDER* city;
+	RENDER* indicator;
 
 	mat4 projection;
 	mat4 cameraPosition;
@@ -59,14 +92,28 @@ class GraphicsWindow : public QWidget
 	void checkErr(cl_int err, const char* name);
 
 	cl_int err;
+	cl_int numImageBuffers;
+	cl_int numKernels;
 	vector<cl_device_id> deviceIds;
 	cl_program program;
 	cl_command_queue queue;
-	cl_mem imageBuffer;
-	cl_kernel kernel;
+	vector<cl_mem> imageBuffer;
+
+	static const int MAX_TRIBES = 16;
+	int currentTribes;
+	Tribe tribes[MAX_TRIBES];
+	cl_mem tribeBuf;
+	
+	static const int MAX_POPULATION = 350;
+	int currentPopulation;
+	Human population[MAX_POPULATION];
+	cl_mem populationBuf;
+
+	vector<cl_kernel> kernel;
 	cl_context context;
 
 	void setupCL();
+	void initializeWorld();
 	void runCL();
 	void closeCL();
 private slots:
@@ -78,4 +125,8 @@ public:
 	void setTextures();
 	void setGeomtries();
 	void setRenders();
+	void selectLandscape();
+	void selectFertility();
+	void selectDensity();
+	void addButton(DebugButton* button, char* label,fastdelegate::FastDelegate0<>callback);
 };

@@ -2,11 +2,13 @@
 
 Camera::Camera() : orientation(1.0f,0.0f,0.0f), 
 	UP(0.0f,1.0f,0.0f),orbit(-6.0f,0.0f,0.0f),
-	MOUSE_SENSITIVITY(0.25f),accelaration(.01f),inOrbit(false){}
+	MOUSE_SENSITIVITY(0.25f),accelaration(.1f),inOrbit(false){}
 
 void Camera::mouseUpdate(const vec2& newMousePosition)
 {
 	vec2 mouseDelta = newMousePosition - oldMousePosition;
+	if(GetAsyncKeyState(VK_RBUTTON))
+	{
 	if(glm::length(mouseDelta) < 200.0f)
 	{
 		if(orientation.y < -0.95f && mouseDelta.y > 0) mouseDelta.y=0;
@@ -18,6 +20,7 @@ void Camera::mouseUpdate(const vec2& newMousePosition)
 		orientation = netRotation * orientation;
 		orbit = netRotation * orbit;
 	}
+	}
 	oldMousePosition = newMousePosition;
 }
 
@@ -28,12 +31,15 @@ mat4 Camera::getWorldtoVeiwMatrix() const
 
 void Camera::update()
 {
-	if (GetAsyncKeyState(Qt::Key::Key_R)) velocity += UP*accelaration;
-	if (GetAsyncKeyState(Qt::Key::Key_F)) velocity -= UP*accelaration;
-	if (GetAsyncKeyState(Qt::Key::Key_W)) velocity += orientation*accelaration;
-	if (GetAsyncKeyState(Qt::Key::Key_S)) velocity -= orientation*accelaration;
-	if (GetAsyncKeyState(Qt::Key::Key_A)) velocity -= glm::normalize(glm::cross(orientation,UP))*accelaration;
-	if (GetAsyncKeyState(Qt::Key::Key_D)) velocity += glm::normalize(glm::cross(orientation,UP))*accelaration;
+	float accel;
+	if(GetAsyncKeyState(VK_LBUTTON))accel = accelaration*0.1f;
+	else accel = accelaration;
+	if (GetAsyncKeyState(Qt::Key::Key_R)) velocity += UP*accel;
+	if (GetAsyncKeyState(Qt::Key::Key_F)) velocity -= UP*accel;
+	if (GetAsyncKeyState(Qt::Key::Key_W)) velocity += orientation*accel;
+	if (GetAsyncKeyState(Qt::Key::Key_S)) velocity -= orientation*accel;
+	if (GetAsyncKeyState(Qt::Key::Key_A)) velocity -= glm::normalize(glm::cross(orientation,UP))*accel;
+	if (GetAsyncKeyState(Qt::Key::Key_D)) velocity += glm::normalize(glm::cross(orientation,UP))*accel;
 
 	velocity *= .9f; 
 	position += velocity;

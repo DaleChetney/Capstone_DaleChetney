@@ -84,7 +84,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DEBUG_MENU;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(CUDA_PATH)\include\;$(SolutionDir)..\..\Middleware\glew\include\;$(SolutionDir)..\..\Middleware\LibNoise\include\;$(SolutionDir)..\..\Middleware\NeumontTools\include\;$(SolutionDir)..\..\Middleware\Qt\include\;$(SolutionDir)..\..\Middleware\glm\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -146,6 +146,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DebugButton.cpp" />
+    <ClCompile Include="DebugButton_moc.cpp" />
+    <ClCompile Include="DebugElement.cpp" />
+    <ClCompile Include="DebugElement_moc.cpp" />
+    <ClCompile Include="DebugSlider.cpp" />
+    <ClCompile Include="DebugSlider_moc.cpp" />
     <ClCompile Include="GraphicsWindow.cpp" />
     <ClCompile Include="GraphicsWindow_moc.cpp" />
     <ClCompile Include="HelloWorld.cpp" />
@@ -155,15 +161,30 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CityOverlayFrag.glsl" />
     <None Include="HelloWorld_Kernel.cl" />
+    <None Include="kernel_BuildBuildings.cl" />
+    <None Include="kernel_DrawRoads.cl" />
+    <None Include="kernel_EnhanceLandscape.cl" />
+    <None Include="kernel_FindFarmland.cl" />
+    <None Include="kernel_Hunt.cl" />
+    <None Include="kernel_Populate.cl" />
     <None Include="kernel_RedDots.cl" />
+    <None Include="kernel_Reproduce.cl" />
+    <None Include="kernel_Settle.cl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DebugButton.h" />
+    <ClInclude Include="DebugElement.h" />
+    <ClInclude Include="DebugSlider.h" />
+    <ClInclude Include="FastDelegate.h" />
     <ClInclude Include="GraphicsWindow.h" />
+    <ClInclude Include="Human.h" />
     <ClInclude Include="noiseutils.h" />
     <ClInclude Include="PCApp.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Tribe.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

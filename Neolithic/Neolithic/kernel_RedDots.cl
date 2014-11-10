@@ -1,12 +1,10 @@
 __constant sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP_TO_EDGE | CLK_FILTER_NEAREST;
 
-__kernel void RedDots (__read_only image2d_t input, __write_only image2d_t output)
+__kernel void RedDots (__read_only image2d_t input, __read_only image2d_t height, __read_only image2d_t fertility,  __read_only image2d_t density, __write_only image2d_t output)
 {
     const int2 pos = {get_global_id(0), get_global_id(1)};
-	int2 rightcheck = {pos.x+1,pos.y};
-	int speed = (read_imagef(input,sampler,rightcheck).z>0.65f)? 1:2;
-    float4 current = read_imagef(input,sampler,pos);
-	if(current.x==1.0f)
+	int speed = 1;
+	if(current.x==1.0f&&current.z==0.0f)
 	{
 		int2 rightpos = {pos.x+speed,pos.y};
 		float4 right = read_imagef(input,sampler,rightpos);
@@ -27,13 +25,13 @@ __kernel void RedDots (__read_only image2d_t input, __write_only image2d_t outpu
 			else
 			{
 				int2 backpos[50];
-
+	
 				for(int i=0; i<50; i++)
 				{
 					backpos[i].x = pos.x-(i+1);
 					backpos[i].y = pos.y-speed;
 				}
-
+	
 				for(int j=0; j<50; j++)
 				{
 					if(read_imagef(input,sampler,backpos[j]).x<=0.1f)

@@ -39,10 +39,37 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DebugElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugElement_moc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugSlider_moc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugSlider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugButton_moc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="HelloWorld_Kernel.cl" />
     <None Include="kernel_RedDots.cl" />
+    <None Include="kernel_EnhanceLandscape.cl" />
+    <None Include="kernel_DrawRoads.cl" />
+    <None Include="CityOverlayFrag.glsl" />
+    <None Include="kernel_Populate.cl" />
+    <None Include="kernel_BuildBuildings.cl" />
+    <None Include="kernel_Reproduce.cl" />
+    <None Include="kernel_Settle.cl" />
+    <None Include="kernel_FindFarmland.cl" />
+    <None Include="kernel_Hunt.cl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -58,6 +85,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Human.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tribe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugSlider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastDelegate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
